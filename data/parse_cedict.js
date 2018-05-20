@@ -4,16 +4,15 @@ const fs = require('fs');
 
 const pinyinDict = require('./words.dict.js');
 
-const dictSrc = './cc-cedict/cedict_ts.u8';
-const phrases = './phrases.dict.js';
-
-const fRead = fs.createReadStream(dictSrc);
-const fWrite = fs.createWriteStream(phrases);
+const phrases = fs.createReadStream('./cc-cedict/cedict_ts.u8');
+const phrasesDict = fs.createWriteStream('./phrases.dict.js');
+const phraseMap = fs.createWriteStream('./phrases.map.dict.js');
 
 const rl = readline.createInterface({
-  input: fRead
+  input: phrases
 });
 
+const startCode = 19968;
 const regex = /(.*?) (.*?) \[(.*?)\]/i;
 
 const final = {};
@@ -110,7 +109,7 @@ function splitLong(key, value, separator) {
 function checkMulti(key, value) {
   const vals = value.split(' ');
   for (let i = 0; i < key.length; i++) {
-    const l = pinyinDict[key.charAt(i)];
+    const l = pinyinDict[key.charCodeAt(i) - startCode ];
     const pinyins = l ? l.split(',') : [];
     // 只保存多音字
     if(pinyins.length > 1 && pinyins.indexOf(vals[i]) > 0) {
@@ -120,9 +119,33 @@ function checkMulti(key, value) {
   return false;
 }
 
-rl.on('close', ()=>{
+function creatPhraseMap(final) {
+  const map = {};
+
+  Object.keys(final).forEach((item) => {
+    const index = item[0].charCodeAt(0) - startCode;
+    const length = final[item].split(' ').length;
+
+    if (map[index]) {
+      map[index].push(length);
+    } else {
+      map[index] = [length];
+    }
+  });
+
+  Object.keys(map).forEach((item) => {
+    map[item] = Array.from(new Set(map[item])).sort().join("");
+  });
+
+  return map;
+}
+
+rl.on('close', () => {
+  // 使用现有字典裁剪长词
   Object.keys(final).forEach((item) => {
     removeRepeat(item, final[item]);
-  })
-	fWrite.write('module.exports='+JSON.stringify(final));
+  });
+  const map = creatPhraseMap(final);
+  phraseMap.write('module.exports=' + JSON.stringify(map).replace(/\"/g, ''));
+	phrasesDict.write('module.exports=' + JSON.stringify(final));
 });

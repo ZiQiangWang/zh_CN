@@ -5,7 +5,11 @@ const fWrite = fs.createWriteStream('./words.dict.js');
 
 const wordsDict = require('./words');
 const symbolDict = require('./phonetic-symbol');
-const final = {};
+
+// 汉字取值范围为19968-40896
+const startCode = 19968;
+
+const final = [];
 const p = new RegExp("([" + Object.keys(symbolDict).join("") + "])", "g");
 for (const key in wordsDict) {
   let value = wordsDict[key];
@@ -20,7 +24,7 @@ for (const key in wordsDict) {
     return r;
   });
 
-  final[key] = arr.join(',');
+  final[key.charCodeAt(0) - startCode] = arr.join(',');
 }
 
 final['呣'] = 'm4';

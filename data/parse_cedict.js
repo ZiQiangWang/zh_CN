@@ -146,6 +146,6 @@ rl.on('close', () => {
     removeRepeat(item, final[item]);
   });
   const map = creatPhraseMap(final);
-  phraseMap.write('module.exports=' + JSON.stringify(map).replace(/\"/g, ''));
+  phraseMap.write('module.exports=' + JSON.stringify(map));
 	phrasesDict.write('module.exports=' + JSON.stringify(final));
 });

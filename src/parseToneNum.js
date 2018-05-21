@@ -1,5 +1,5 @@
 const symbolDict = require('./phonetic-symbol').tone;
-const p = new RegExp("([" + Object.keys(symbolDict).join("") + "])", "g");
+const p = new RegExp('([' + Object.keys(symbolDict).join('') + '])', 'g');
 
 function parseToneNum(word) {
   let s = '';

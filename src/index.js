@@ -17,7 +17,6 @@ const phrases = require('../data/phrases.dict.js');
 const phrasesMap = require('../data/phrases.dict.map.js');
 
 const parseNumTone = require('./parseNumTone');
-const clearTone = require('./clearTone');
 
 function pinyin(hans, options) {
 

@@ -3,7 +3,6 @@ const readline = require('readline');
 const fs = require('fs');
 
 const pinyinDict = require('./words.dict.js');
-
 const phrases = fs.createReadStream('./cc-cedict/cedict_ts.u8');
 const phrasesDict = fs.createWriteStream('./phrases.dict.js');
 const phraseMap = fs.createWriteStream('./phrases.map.dict.js');
@@ -145,6 +144,7 @@ rl.on('close', () => {
   Object.keys(final).forEach((item) => {
     removeRepeat(item, final[item]);
   });
+
   const map = creatPhraseMap(final);
   phraseMap.write('module.exports=' + JSON.stringify(map));
 	phrasesDict.write('module.exports=' + JSON.stringify(final));

@@ -1,5 +1,4 @@
-const PHONETIC_SYMBOL = require('./phonetic-symbol');
-
+const PHONETIC_SYMBOL = require('./phonetic-symbol').num;
 const pWord = /[aoeiuv]+/;
 
 const parseNumTone = function(word) {
@@ -10,7 +9,8 @@ const parseNumTone = function(word) {
   if (isNaN(+tone)) return word;
 
   word = word.slice(0, -1);
-  if (tone === '5' || word === 'm') return word;
+  if (tone === '5') return word;
+  if(word === 'm') return PHONETIC_SYMBOL[word + tone];
 
   // 拼音中元音韵母部分
   const vowel = pWord.exec(word)[0];

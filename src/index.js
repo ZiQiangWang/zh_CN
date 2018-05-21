@@ -14,9 +14,10 @@ const BASE_CODE = 19968;
 
 const words = require('../data/words.dict.js');
 const phrases = require('../data/phrases.dict.js');
-const phrasesMap = require('../data/phrases.map.dict.js');
+const phrasesMap = require('../data/phrases.dict.map.js');
 
 const parseNumTone = require('./parseNumTone');
+const clearTone = require('./clearTone');
 
 function pinyin(hans, options) {
 
@@ -45,7 +46,7 @@ function pinyin(hans, options) {
     if (config.style === PINYIN_STYLE.NORMAL) {
       pin = clearNum(pin);
     } else if (config.style === PINYIN_STYLE.TONE) {
-      pin = parseNumTone(pin);
+      pin = pin.split(' ').map((item) => parseNumTone(item)).join(' ');
     } else if (config.style === PINYIN_STYLE.FIRST_LETTER) {
       pin = getFirstLetter(pin);
     }

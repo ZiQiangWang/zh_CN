@@ -2,7 +2,13 @@
 const readline = require('readline');
 const fs = require('fs');
 
-const pinyinDict = require('./words.dict.js');
+const words = require('./words.dict.js');
+
+const pinyinDict = {};
+words.split(',').forEach((item, index) => {
+  pinyinDict[index] = item;
+});
+
 const phrases = fs.createReadStream('./cc-cedict/cedict_ts.u8');
 const phrasesDict = fs.createWriteStream('./phrases.dict.js');
 const phraseMap = fs.createWriteStream('./phrases.dict.map.js');
@@ -109,7 +115,7 @@ function checkMulti(key, value) {
   const vals = value.split(' ');
   for (let i = 0; i < key.length; i++) {
     const l = pinyinDict[key.charCodeAt(i) - startCode ];
-    const pinyins = l ? l.split(',') : [];
+    const pinyins = l ? l.split(' ') : [];
     // 只保存多音字
     if(pinyins.length > 1 && pinyins.indexOf(vals[i]) > 0) {
       return true;

@@ -12,7 +12,13 @@ const DEFAULT_OPTIONS = {
 
 const BASE_CODE = 19968;
 
-const words = require('../data/words.dict.js');
+const wordsStr = require('../data/words.dict.js');
+
+const words = {};
+wordsStr.split(',').forEach((item, index) => {
+  words[index] = item;
+});
+
 const phrases = require('../data/phrases.dict.js');
 const phrasesMap = require('../data/phrases.dict.map.js');
 
@@ -25,7 +31,8 @@ function pinyin(hans, options) {
   }
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
 
-  let result = '';
+  let result = [];
+  let nohan = '';
   for (let i = 0; i < hans.length;) {
 
     // 当前汉字的code
@@ -34,25 +41,34 @@ function pinyin(hans, options) {
     // 如果不是汉字，则做相应处理
     if (!words[code]) {
       if (!config.only_chinese) {
-        result += hans[i];
+        nohan += hans[i];
       }
       i++;
       continue;
+    } else if (nohan !== ''){
+      result.push(nohan);
+      nohan = '';
     }
 
     const p = searchPhrase(code, i, hans);
     let pin = p[0];
     if (config.style === PINYIN_STYLE.NORMAL) {
-      pin = clearNum(pin);
+      pin = clearNum(pin).split(' ');
     } else if (config.style === PINYIN_STYLE.TONE) {
-      pin = pin.split(' ').map((item) => parseNumTone(item)).join(' ');
+      pin = pin.split(' ').map((item) => parseNumTone(item));
     } else if (config.style === PINYIN_STYLE.FIRST_LETTER) {
       pin = getFirstLetter(pin);
+    } else {
+      pin = pin.split(' ');
     }
-    result += ' ' + pin;
+    result = result.concat(pin);
     i += p[1];
   }
-  return result.trim();
+  if(nohan !== ''){
+    result.push(nohan);
+    nohan = "";
+  }
+  return result;
 }
 
 // 针对每个字搜索词语字典
@@ -60,7 +76,7 @@ function pinyin(hans, options) {
 function searchPhrase(code, index, hans) {
   const indexes = phrasesMap[code];
 
-  if (!indexes) return [words[code].split(',')[0], 1];
+  if (!indexes) return [words[code].split(' ')[0], 1];
   // 汉字总长度
   const len = hans.length;
   // 词典中的候选词长度
@@ -73,7 +89,7 @@ function searchPhrase(code, index, hans) {
 
     if (phrases[key]) return [phrases[key], phraseLen];
   }
-  return [words[code].split(',')[0], 1];
+  return [words[code].split(' ')[0], 1];
 }
 
 // 将拼音后的数字去除
@@ -83,10 +99,10 @@ function clearNum(tone) {
 
 // 获取拼音首字母
 function getFirstLetter(word) {
-  let result = word[0];
+  let result = [word[0]];
   for (let i = 1; i < word.length; i++) {
     if(word[i] === ' ') {
-      result += ' ' + word[i + 1];
+      result.push(word[i + 1]);
     }
   }
 

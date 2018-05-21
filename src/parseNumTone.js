@@ -22,11 +22,9 @@ const parseNumTone = function(word) {
     word = word.replace('e', PHONETIC_SYMBOL['e' + tone]);
   } else if (vowel.includes('o')) {
     word = word.replace('o', PHONETIC_SYMBOL['o' + tone]);
-  } else if (vowel.includes('u') && vowel.includes('i')) {
+  } else {
     const key = vowel.charAt(vowel.length - 1);
     word = word.replace(key, PHONETIC_SYMBOL[key + tone]);
-  } else if (vowel.includes('v')) {
-    word = word.replace('v', PHONETIC_SYMBOL['v' + tone]);
   }
 
   return word;

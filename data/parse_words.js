@@ -13,7 +13,7 @@ const startCode = 19968;
 const final = [];
 
 for (const key in wordsDict) {
-  final[key.charCodeAt(0) - startCode] = parseToneNum(wordsDict[key]);
+  final[key.charCodeAt(0) - startCode] = wordsDict[key].split(',').map((item) => parseToneNum(item)).join(',');
 }
 
 fWrite.write('module.exports='+JSON.stringify(final));

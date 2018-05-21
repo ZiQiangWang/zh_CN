@@ -5,7 +5,7 @@ const fs = require('fs');
 const pinyinDict = require('./words.dict.js');
 const phrases = fs.createReadStream('./cc-cedict/cedict_ts.u8');
 const phrasesDict = fs.createWriteStream('./phrases.dict.js');
-const phraseMap = fs.createWriteStream('./phrases.map.dict.js');
+const phraseMap = fs.createWriteStream('./phrases.dict.map.js');
 
 const rl = readline.createInterface({
   input: phrases

@@ -70,9 +70,9 @@ function searchPhrase(code, index, hans) {
     phraseLen = Number(indexes[j]);
     if (phraseLen > len - index) continue;
     const key = hans.substr(index, indexes[j]);
+
     if (phrases[key]) return [phrases[key], phraseLen];
   }
-
   return [words[code].split(',')[0], 1];
 }
 

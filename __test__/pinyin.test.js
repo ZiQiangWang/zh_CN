@@ -25,6 +25,12 @@ const cases = [
     STYLE_TONE_NUM: ['chong2', 'qing4'],
     STYLE_FIRST_LETTER: ['c', 'q']
   }],
+  ['繁体', '我愛交響樂', {
+    STYLE_NORMAL: ['wo', 'ai', 'jiao', 'xiang', 'yue'],
+    STYLE_TONE: ['wǒ', 'ài', 'jiāo', 'xiǎng', 'yuè'],
+    STYLE_TONE_NUM: ['wo3', 'ai4', 'jiao1', 'xiang3', 'yue4'],
+    STYLE_FIRST_LETTER: ['w', 'a', 'j', 'x', 'y']
+  }],
   ['中英文混合', 'hello中国', {
     STYLE_NORMAL: ['hello', 'zhong', 'guo'],
     STYLE_TONE: ['hello', 'zhōng', 'guó'],
@@ -44,10 +50,10 @@ const cases = [
     STYLE_FIRST_LETTER: ['a a']
   }],
   ['多音字但不存在于词典中', '且怒且悲', {
-    STYLE_NORMAL: ["qie", "nu", "qie", "bei"],
-    STYLE_TONE: ["qiě", "nù", "qiě", "bēi"],
-    STYLE_TONE_NUM: ["qie3", "nu4", "qie3", "bei1"],
-    STYLE_FIRST_LETTER: ["q", "n", "q", "b"]
+    STYLE_NORMAL: ['qie', 'nu', 'qie', 'bei'],
+    STYLE_TONE: ['qiě', 'nù', 'qiě', 'bēi'],
+    STYLE_TONE_NUM: ['qie3', 'nu4', 'qie3', 'bei1'],
+    STYLE_FIRST_LETTER: ['q', 'n', 'q', 'b']
   }],
   ['过滤掉汉字之外的内容', 'hello，中国NO.1！', {
     STYLE_NORMAL: ['zhong', 'guo'],
@@ -61,7 +67,7 @@ function createTest(desc, words, styles, options = {}) {
   describe(desc, () => {
     Object.keys(styles).forEach((item, index) => {
       test(String.fromCharCode(97 + index) + '.' + item, () => {
-        expect(pinyin(words, {style: pinyin[item], ...options})).toEqual(styles[item]);
+        expect(pinyin(words, Object.assign({}, {style: pinyin[item]}, options))).toEqual(styles[item]);
       });
     });
   });

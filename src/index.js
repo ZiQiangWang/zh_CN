@@ -12,16 +12,21 @@ const DEFAULT_OPTIONS = {
 
 const BASE_CODE = 19968;
 
+// 解析字典，将字符串在导入时解析成对象
 const wordsStr = require('../data/words.dict.js');
 
 const words = {};
 wordsStr.split(',').forEach((item, index) => {
   words[index] = item;
 });
-
+// 繁体字字典
+const tradition = require('../data/tradition.dict.js');
+// 多音词的字典
 const phrases = require('../data/phrases.dict.js');
+// 映射多音词长度的字典，辅助搜索算法
 const phrasesMap = require('../data/phrases.dict.map.js');
 
+// 将数字声调转成字符
 const parseNumTone = require('./parseNumTone');
 
 function pinyin(hans, options) {
@@ -31,9 +36,12 @@ function pinyin(hans, options) {
   }
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
 
+  hans = convertTrandition(hans);
   let result = [];
   let nohan = '';
+
   for (let i = 0; i < hans.length;) {
+
 
     // 当前汉字的code
     const code = hans[i].charCodeAt(0) - BASE_CODE;
@@ -66,9 +74,18 @@ function pinyin(hans, options) {
   }
   if(nohan !== ''){
     result.push(nohan);
-    nohan = "";
+    nohan = '';
   }
   return result;
+}
+
+// 将文字中的繁体转换为简体
+function convertTrandition(hans) {
+  let newHans = '';
+  for (let i = 0; i < hans.length; i++) {
+    newHans += tradition[hans[i]] || hans[i];
+  }
+  return newHans;
 }
 
 // 针对每个字搜索词语字典

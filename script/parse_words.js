@@ -1,9 +1,9 @@
 // 将words.js中的带音调转换为words.dict.js中的数字表示
 const fs = require('fs');
 
-const fWrite = fs.createWriteStream('./words.dict.js');
+const fWrite = fs.createWriteStream('../data/words.dict.js');
 
-const wordsDict = require('./words');
+const wordsDict = require('../data/words');
 
 
 const parseToneNum = require('../src/parseToneNum');

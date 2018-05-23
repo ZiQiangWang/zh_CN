@@ -2,16 +2,16 @@
 const readline = require('readline');
 const fs = require('fs');
 
-const words = require('./words.dict.js');
+const words = require('../data/words.dict.js');
 
 const pinyinDict = {};
 words.split(',').forEach((item, index) => {
   pinyinDict[index] = item;
 });
 
-const phrases = fs.createReadStream('./cc-cedict/cedict_ts.u8');
-const phrasesDict = fs.createWriteStream('./phrases.dict.js');
-const phraseMap = fs.createWriteStream('./phrases.dict.map.js');
+const phrases = fs.createReadStream('../data/cc-cedict/cedict_ts.u8');
+const phrasesDict = fs.createWriteStream('../data/phrases.dict.js');
+const phraseMap = fs.createWriteStream('../data/phrases.dict.map.js');
 
 const rl = readline.createInterface({
   input: phrases

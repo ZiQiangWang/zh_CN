@@ -16,10 +16,17 @@ const final = {};
 rl.on('line', (line) => {
   line = line.replace('u:', 'v').toLowerCase();
   const result = line.match(regex);
+
   if (result) {
     const key = result[2];
     const value = result[3];
-    final[key] = value;
+    if (key.length < 3) {
+      return;
+    }
+    const ran = Math.random() * 100;
+    if (ran <=5 ) {
+      final[key] = value;
+    }
   };
 });
 

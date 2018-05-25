@@ -13,6 +13,12 @@ const cases = [
     STYLE_TONE_NUM: ['wo3'],
     STYLE_FIRST_LETTER: ['w']
   }],
+  ['黑糊糊', '黑糊糊', {
+    STYLE_NORMAL: ['wo'],
+    STYLE_TONE: ['wǒ'],
+    STYLE_TONE_NUM: ['wo3'],
+    STYLE_FIRST_LETTER: ['w']
+  }],
   ['多音字', '中', {
     STYLE_NORMAL: ['zhong'],
     STYLE_TONE: ['zhōng'],

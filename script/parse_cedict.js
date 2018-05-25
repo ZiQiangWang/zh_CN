@@ -36,12 +36,14 @@ rl.on('line', (line) => {
     }
     const value = result[3];
 
-    if (key.length === 2 || key.length === 3) {
-      repeat[key] = value;
-    }
+    // if (key.length === 2 || key.length === 3) {
+    //   repeat[key] = value;
+    // }
+
     splitLong(key, value, '，') &&
-    splitLong(key, value, '·') &&
-    checkMulti(key, value) && (final[key] = value);
+    splitLong(key, value, '·') && (final[key] = value);
+    // checkMulti(key, value) && (final[key] = value);
+
   };
 });
 
@@ -116,6 +118,10 @@ function checkMulti(key, value) {
   for (let i = 0; i < key.length; i++) {
     const l = pinyinDict[key.charCodeAt(i) - startCode ];
     const pinyins = l ? l.split(' ') : [];
+
+    if (/^[a-zA-Z].*5$/.test(vals[i])) {
+      return true;
+    }
     // 只保存多音字
     if(pinyins.length > 1 && pinyins.indexOf(vals[i]) > 0) {
       return true;
@@ -147,9 +153,9 @@ function creatPhraseMap(final) {
 
 rl.on('close', () => {
   // 使用现有字典裁剪长词
-  Object.keys(final).forEach((item) => {
-    removeRepeat(item, final[item]);
-  });
+  // Object.keys(final).forEach((item) => {
+  //   removeRepeat(item, final[item]);
+  // });
 
   const map = creatPhraseMap(final);
   phraseMap.write('module.exports=' + JSON.stringify(map));

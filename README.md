@@ -1,2 +1,2 @@
-# pinyin-tools
-拼音工具集合
+# zh_CN
+汉语转拼音

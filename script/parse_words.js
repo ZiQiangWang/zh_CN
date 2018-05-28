@@ -11,9 +11,10 @@ const parseToneNum = require('../src/parseToneNum');
 const startCode = 19968;
 
 const final = [];
-
+console.log('======开始创建word字典======');
 for (const key in wordsDict) {
   final[key.charCodeAt(0) - startCode] = wordsDict[key].split(',').map((item) => parseToneNum(item)).join(' ');
 }
 
 fWrite.write('module.exports="' + final.join(',') + '"');
+console.log('======创建word字典结束======');

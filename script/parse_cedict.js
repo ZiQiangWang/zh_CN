@@ -20,12 +20,16 @@ const rl = readline.createInterface({
 const startCode = 19968;
 const regex = /(.*?) (.*?) \[(.*?)\]/i;
 
+// 保存最终结果
 const final = {};
 // 保存长度为2和3的字典，用来字段的截取和去重
 const repeat = {};
+// 保存初始字典
+const total = {};
 
+console.log('======开始创建cedict字典======');
 rl.on('line', (line) => {
-  line = line.replace('u:', 'v').toLowerCase();
+  line = line.replace(/u:/g, 'v').toLowerCase();
   const result = line.match(regex);
   if (result) {
 
@@ -34,47 +38,56 @@ rl.on('line', (line) => {
     if (key.length === 1) {
       return;
     }
+
     const value = result[3];
-
-    // if (key.length === 2 || key.length === 3) {
-    //   repeat[key] = value;
-    // }
-
-    splitLong(key, value, '，') &&
-    splitLong(key, value, '·') && (final[key] = value);
-    // checkMulti(key, value) && (final[key] = value);
+    total[key] = value;
+    if (key.length === 2 || key.length === 3) {
+      repeat[key] = value;
+    }
 
   };
 });
+
+
+function sliceValue(value, start, end) {
+  return value.split(' ').slice(start, end).join(' ');
+}
 
 // 有些单词是组合词，如果在现有的词典中已经已经存在，可以将重复的部分删除
 // 例如北京在字典中已存在，北京话就可以从字典中去掉
 function removeRepeat(key, value) {
   const length = key.length;
   if (length < 3) return;
+  if (value === undefined) return;
 
   const start2 = key.substring(0, 2);
+  console.log(start2);
+  const startValue2 = sliceValue(value, 0, 2);
   const start3 = key.substring(0, 3);
+  const startValue3 = sliceValue(value, 0, 3);
   const end2 = key.substring(length - 2);
+  const endValue2 = sliceValue(value, length - 2, length);
   const end3 = key.substring(length - 3);
+  const endValue3 = sliceValue(value, length - 3, length);
   if (length === 3) {
-    if (repeat[start2]) {
+    if (repeat[start2] === startValue2) {
       replaceMulti(key, value, 2, length);
-    } else if (repeat[end2]) {
+    } else if (repeat[end2] === endValue2) {
       replaceMulti(key, value, 0, length - 2);
     }
   } else {
-    if (repeat[start3]) {
+    if (repeat[start3] === startValue3) {
       replaceMulti(key, value, 3, length);
-    } else if (repeat[end3]) {
+    } else if (repeat[end3] === endValue3) {
       replaceMulti(key, value, 0, length - 3);
-    } else if (repeat[start2]) {
+    } else if (repeat[start2] === startValue2) {
       replaceMulti(key, value, 2, length);
-    } else if (repeat[end2]) {
+    } else if (repeat[end2] === endValue2) {
       replaceMulti(key, value, 0, length - 2);
     }
   }
 }
+
 
 // 替换多音字
 function replaceMulti(key, value, start, end) {
@@ -105,9 +118,21 @@ function splitLong(key, value, separator) {
   if (key.indexOf(separator) !== -1) {
 
     key.split(separator).forEach((item, index) => {
-      checkMulti(item, value) && (final[item] = value.split(` ${dic[separator]} `)[index]);
+      checkMulti(item, value) &&
+      (final[item] = value.split(` ${dic[separator]} `)[index]);
     });
     return false;
+  }
+  return true;
+}
+
+// 过滤掉包含非中文的词
+function filterNoChiese(key) {
+  for (let i = 0; i < key.length; i++) {
+    const l = pinyinDict[key.charCodeAt(i) - startCode ];
+    if(!l) {
+      return false;
+    }
   }
   return true;
 }
@@ -119,10 +144,8 @@ function checkMulti(key, value) {
     const l = pinyinDict[key.charCodeAt(i) - startCode ];
     const pinyins = l ? l.split(' ') : [];
 
-    if (/^[a-zA-Z].*5$/.test(vals[i])) {
-      return true;
-    }
-    // 只保存多音字
+    // 搜索策略中，如果没有在词典中找到这个字的相关内容，则默认使用第一个读音
+    // 这里将读音为第一个的去除，减小字体大小
     if(pinyins.length > 1 && pinyins.indexOf(vals[i]) > 0) {
       return true;
     }
@@ -136,11 +159,11 @@ function creatPhraseMap(final) {
   Object.keys(final).forEach((item) => {
     const index = item[0].charCodeAt(0) - startCode;
     const length = final[item].split(' ').length;
-
+    const lenCode = String.fromCharCode(48 + length);
     if (map[index]) {
-      map[index].push(length);
+      map[index].push(lenCode);
     } else {
-      map[index] = [length];
+      map[index] = [lenCode];
     }
   });
 
@@ -152,12 +175,22 @@ function creatPhraseMap(final) {
 }
 
 rl.on('close', () => {
+  Object.keys(total).forEach((key) => {
+    const value = total[key];
+    splitLong(key, value, '，') &&
+    splitLong(key, value, '·') &&
+    filterNoChiese(key) &&
+    checkMulti(key, value) &&
+    (final[key] = value);
+
+  })
   // 使用现有字典裁剪长词
-  // Object.keys(final).forEach((item) => {
-  //   removeRepeat(item, final[item]);
-  // });
+  Object.keys(final).forEach((item) => {
+    removeRepeat(item, final[item]);
+  });
 
   const map = creatPhraseMap(final);
   phraseMap.write('module.exports=' + JSON.stringify(map));
 	phrasesDict.write('module.exports=' + JSON.stringify(final));
+  console.log('======创建cedict字典完成======');
 });

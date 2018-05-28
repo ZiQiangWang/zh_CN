@@ -30,12 +30,10 @@ const phrasesMap = require('../data/phrases.dict.map.js');
 const parseNumTone = require('./parseNumTone');
 
 function pinyin(hans, options) {
-
   if (typeof hans !== 'string') {
     throw new Error('入参类型应该为string');
   }
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-
   hans = convertTrandition(hans);
   let result = [];
   let nohan = '';
@@ -92,7 +90,6 @@ function convertTrandition(hans) {
 // 当前汉字可能是一个多音词的第一个字，据此去索引多音词的可能长度
 function searchPhrase(code, index, hans) {
   const indexes = phrasesMap[code];
-
   if (!indexes) return [words[code].split(' ')[0], 1];
   // 汉字总长度
   const len = hans.length;
@@ -100,10 +97,10 @@ function searchPhrase(code, index, hans) {
   let phraseLen = 1;
   // 从最大的长度开始匹配
   for (let j = indexes.length - 1; j >= 0; j--) {
-    phraseLen = Number(indexes[j]);
+    phraseLen = indexes[j].charCodeAt(0) - 48;
     if (phraseLen > len - index) continue;
     const key = hans.substr(index, indexes[j]);
-
+    // console.log(key, phrases[key]);
     if (phrases[key]) return [phrases[key], phraseLen];
   }
   return [words[code].split(' ')[0], 1];

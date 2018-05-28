@@ -29,7 +29,7 @@ const phrasesMap = require('../data/phrases.dict.map.js');
 // 将数字声调转成字符
 const parseNumTone = require('./parseNumTone');
 
-function pinyin(hans, options) {
+function zh(hans, options) {
   if (typeof hans !== 'string') {
     throw new Error('入参类型应该为string');
   }
@@ -123,9 +123,9 @@ function getFirstLetter(word) {
   return result;
 }
 
-pinyin.STYLE_NORMAL = PINYIN_STYLE.NORMAL;
-pinyin.STYLE_TONE = PINYIN_STYLE.TONE;
-pinyin.STYLE_TONE_NUM = PINYIN_STYLE.TONE_NUM;
-pinyin.STYLE_FIRST_LETTER = PINYIN_STYLE.FIRST_LETTER;
+zh.STYLE_NORMAL = PINYIN_STYLE.NORMAL;
+zh.STYLE_TONE = PINYIN_STYLE.TONE;
+zh.STYLE_TONE_NUM = PINYIN_STYLE.TONE_NUM;
+zh.STYLE_FIRST_LETTER = PINYIN_STYLE.FIRST_LETTER;
 
-module.exports = pinyin;
+module.exports = zh;

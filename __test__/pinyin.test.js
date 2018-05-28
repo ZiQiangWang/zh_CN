@@ -1,4 +1,4 @@
-const pinyin = require('../src/index');
+const zh = require('../src/index');
 
 const cases = [
 
@@ -68,16 +68,16 @@ const cases = [
 //   describe(desc, () => {
 //     Object.keys(styles).forEach((item, index) => {
 //       test(String.fromCharCode(97 + index) + '.' + item, () => {
-//         expect(pinyin(words, Object.assign({}, {style: pinyin[item]}, options))).toEqual(styles[item]);
+//         expect(zh(words, Object.assign({}, {style: zh[item]}, options))).toEqual(styles[item]);
 //       });
 //     });
 //   });
 // }
 //
-// describe('pinyin的测试用例', () => {
+// describe('zh的测试用例', () => {
 //   describe('非字符串输入', () => {
 //     test('1、数字', () => {
-//       expect(pinyin.bind(null, 12)).toThrow();
+//       expect(zh.bind(null, 12)).toThrow();
 //     });
 //   });
 //   cases.forEach((item, index) => {
@@ -94,7 +94,7 @@ cases.forEach((item, index) => {
   const options = item[3];
   console.log(index + '.' + desc, words);
   Object.keys(styles).forEach(style => {
-    const result = pinyin(words, Object.assign({}, {style: pinyin[style]}, options));
+    const result = zh(words, Object.assign({}, {style: zh[style]}, options));
     const passed = JSON.stringify(result) === JSON.stringify(styles[style]);
     if (passed) {
       console.log(style, '通过'.green);

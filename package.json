@@ -1,8 +1,8 @@
 {
-  "name": "zh_CN",
+  "name": "zh_cn",
   "version": "0.0.1",
   "description": "拼音操作的一些工具",
-  "main": "./dist/zh_cn.js",
+  "main": "./dist/zh_cn.min.js",
   "scripts": {
     "lint": "eslint src __test__ --fix",
     "build": "webpack",

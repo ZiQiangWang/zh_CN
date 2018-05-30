@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div>
+      <h1>重庆</h1>
+      <p id="pinyin"></p>
+    </div>
+    <button type="button" name="button" id="convert">转</button>
+    <script type="text/javascript" src="../dist/zh_cn.min.js">
+    </script>
+    <script type="text/javascript">
+      var pinyin = document.getElementById("pinyin");
+
+      document.getElementById("convert").onclick = function(){
+       pinyin.innerText = zh('中文');
+      }
+    </script>
+  </body>
+</html>

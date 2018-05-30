@@ -1,4 +1,4 @@
-const zh = require('../src/index');
+const zh = require('../dist/zh_cn.min.js');
 
 const cases = [
 

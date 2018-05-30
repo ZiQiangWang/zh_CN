@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'zh_cn.min.js',
-    library: "zh_cn",
+    library: "zh",
     libraryTarget: "umd"
   },
   module: {

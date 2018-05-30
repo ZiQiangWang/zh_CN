@@ -1,6 +1,6 @@
 {
   "name": "zh_cn",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "拼音操作的一些工具",
   "main": "./dist/zh_cn.min.js",
   "scripts": {

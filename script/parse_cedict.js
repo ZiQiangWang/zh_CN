@@ -61,7 +61,6 @@ function removeRepeat(key, value) {
   if (value === undefined) return;
 
   const start2 = key.substring(0, 2);
-  console.log(start2);
   const startValue2 = sliceValue(value, 0, 2);
   const start3 = key.substring(0, 3);
   const startValue3 = sliceValue(value, 0, 3);
@@ -157,7 +156,7 @@ function creatPhraseMap(final) {
   const map = {};
 
   Object.keys(final).forEach((item) => {
-    const index = item[0].charCodeAt(0) - startCode;
+    const index = item[0];
     const length = final[item].split(' ').length;
     const lenCode = String.fromCharCode(48 + length);
     if (map[index]) {

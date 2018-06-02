@@ -90,7 +90,7 @@ function convertTrandition(hans) {
 // 针对每个字搜索词语字典
 // 当前汉字可能是一个多音词的第一个字，据此去索引多音词的可能长度
 function searchPhrase(code, index, hans) {
-  const indexes = phrasesMap[code];
+  const indexes = phrasesMap[hans[index]];
   if (!indexes) return [words[code].split(' ')[0], 1];
   // 汉字总长度
   const len = hans.length;

@@ -7,7 +7,8 @@ const PINYIN_STYLE = {
 
 const DEFAULT_OPTIONS = {
   // 过滤掉汉字之外的内容
-  only_chinese: false
+  only_chinese: false,
+  style: PINYIN_STYLE.NORMAL
 };
 
 const BASE_CODE = 19968;

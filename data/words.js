@@ -10560,7 +10560,7 @@ module.exports = {
     "眽":"mò",
     "眾":"zhòng",
     "眿":"mò",
-    "着":"zhuó,zháo,zhāo,zhe",
+    "着":"zhe,zhuó,zháo,zhāo",
     "睁":"zhēng",
     "睂":"méi",
     "睃":"suō",

@@ -1,12 +1,12 @@
 {
   "name": "zh_cn",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "拼音操作的一些工具",
   "main": "./dist/zh_cn.min.js",
   "scripts": {
     "lint": "eslint src __test__ --fix",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,11 @@
   "keywords": [
     "汉字",
     "拼音",
-    "pinyin"
+    "多音字",
+    "pinyin",
+    "lite",
+    "mini",
+    "zh"
   ],
   "license": "MIT",
   "bugs": {

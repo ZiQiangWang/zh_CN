@@ -1,5 +1,8 @@
 # zh_CN
-汉字转拼音工具，用于汉语注音
+[![npm](https://img.shields.io/npm/v/zh_cn.svg)](https://www.npmjs.com/package/react-cmirror)
+[![npm](https://img.shields.io/npm/dm/zh_cn.svg)](https://www.npmjs.com/package/zh_cn)
+
+汉字转拼音工具，基于开源字典[cc-cedict](https://www.mdbg.net/chinese/dictionary?page=cedict)解析多音字
 
 ## 特性
 
@@ -29,6 +32,17 @@ console.log(zh("hello，中国NO.1！", {
   only_chinese: true
 }));                       // ['zhong', 'guo']
 ```
+
+## 浏览器端
+
+```js
+<script type="text/javascript" src="../dist/zh_cn.min.js"></script>
+<script type="text/javascript">
+   pinyin.innerText = zh('中文');
+</script>
+```
+
+
 
 ## 拼音风格
 
@@ -93,4 +107,4 @@ cc-cedict字典8.9M，去除掉无用信息，转化为对象后，还有3M左�
 
 ## 缺陷
 
-目前不支持轻音
+目前不支持轻音，为了裁剪字典尺寸

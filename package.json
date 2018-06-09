@@ -1,7 +1,7 @@
 {
   "name": "zh_cn",
-  "version": "0.0.5",
-  "description": "拼音操作的一些工具",
+  "version": "0.0.6",
+  "description": "将汉语转换为拼音",
   "main": "./dist/zh_cn.min.js",
   "scripts": {
     "lint": "eslint src __test__ --fix",

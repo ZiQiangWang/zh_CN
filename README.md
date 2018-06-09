@@ -2,7 +2,9 @@
 [![npm](https://img.shields.io/npm/v/zh_cn.svg)](https://www.npmjs.com/package/react-cmirror)
 [![npm](https://img.shields.io/npm/dm/zh_cn.svg)](https://www.npmjs.com/package/zh_cn)
 
-汉字转拼音工具，基于开源字典[cc-cedict](https://www.mdbg.net/chinese/dictionary?page=cedict)解析多音字
+[![gzip](http://img.badgesize.io/https://unpkg.com/zh_cn/dist/zh_cn.min.js?compression=gzip)](https://unpkg.com/zh_cn/dist/zh_cn.min.js)
+
+汉字转拼音工具，基于开源字典[cc-cedict](https://www.mdbg.net/chinese/dictionary?page=cedict)解析多音字，[例子](https://ziqiangwang.github.io/zh_CN/demo/index.html)
 
 ## 特性
 
@@ -10,7 +12,7 @@
 + 支持多音字精确匹配
 + 繁体与简体同样支持
 + 多种拼音风格
-+ 体积小，完整的支持为306KB
++ 体积小，完整的支持为306KB，gzip压缩后121KB
 + 速度快，2万字转换大概0.58秒
 
 ## 安装
@@ -36,7 +38,7 @@ console.log(zh("hello，中国NO.1！", {
 ## 浏览器端
 
 ```js
-<script type="text/javascript" src="../dist/zh_cn.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/zh_cn/dist/zh_cn.min.js"></script>
 <script type="text/javascript">
    pinyin.innerText = zh('中文');
 </script>

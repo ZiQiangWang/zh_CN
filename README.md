@@ -3,6 +3,7 @@
 [![NPM version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
 [![NPM downloads][npm-downloads]][npm-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
 [![gzip](http://img.badgesize.io/https://unpkg.com/zh_cn/dist/zh_cn.min.js?compression=gzip)][unpkg-url]
 
 
@@ -12,6 +13,9 @@
 [travis-badge]: https://www.travis-ci.org/ZiQiangWang/zh_CN.svg?branch=master
 [travis-url]: https://www.travis-ci.org/ZiQiangWang/zh_CN
 [unpkg-url]: https://unpkg.com/zh_cn/dist/zh_cn.min.js
+[coveralls-badge]: https://coveralls.io/repos/ZiQiangWang/zh_CN/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/ZiQiangWang/zh_CN
+
 
 汉字转拼音工具，基于开源字典[cc-cedict](https://www.mdbg.net/chinese/dictionary?page=cedict)解析多音字，[例子](https://ziqiangwang.github.io/zh_CN/demo/index.html)
 

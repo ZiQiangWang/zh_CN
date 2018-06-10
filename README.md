@@ -1,7 +1,6 @@
 # zh_CN
 [![npm](https://img.shields.io/npm/v/zh_cn.svg)](https://www.npmjs.com/package/react-cmirror)
 [![npm](https://img.shields.io/npm/dm/zh_cn.svg)](https://www.npmjs.com/package/zh_cn)
-
 [![gzip](http://img.badgesize.io/https://unpkg.com/zh_cn/dist/zh_cn.min.js?compression=gzip)](https://unpkg.com/zh_cn/dist/zh_cn.min.js)
 
 汉字转拼音工具，基于开源字典[cc-cedict](https://www.mdbg.net/chinese/dictionary?page=cedict)解析多音字，[例子](https://ziqiangwang.github.io/zh_CN/demo/index.html)

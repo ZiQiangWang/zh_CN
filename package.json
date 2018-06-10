@@ -4,7 +4,7 @@
   "description": "将汉语转换为拼音",
   "main": "./dist/zh_cn.min.js",
   "scripts": {
-    "lint": "eslint src __test__ --fix",
+    "lint": "eslint src --fix",
     "build": "webpack",
     "test": "jest --coverage"
   },
